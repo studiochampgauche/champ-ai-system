@@ -21,7 +21,14 @@ A test revealing unacceptable P95 or low throughput is a diagnostic result, not 
 4. Re-run the **same** representative test profile. Watch cold vs warm cache, p99 outliers, resource saturation and regressions.
 5. Stop when acceptance criteria are met, risk/effort is disproportionate, or a real blocker is documented; don't optimize endlessly.
 
+## First paint and transitions
+- Inspect the initial render sequence on cold and warm loads, including slow or failed critical requests. Distinguish missing/late styles, font swaps, image-induced shifts and late animation initialization; a single settled screenshot cannot establish the cause of FOUC.
+- Make essential styles, fonts and first-viewport media discoverable early. Avoid unnecessary font families/weights and late CSS import chains; tune fallback metrics, reserve asset dimensions and preload selectively. Verify the rendered result as well as the request waterfall.
+- Treat a preloader as a bounded user-interface state, not a performance optimization. Tie it to necessary readiness, remove it promptly, and provide success/error/timeout exits with usable fallbacks. Do not add fake progress, artificial waits or a dependency on every page asset; compare perceived usability and LCP with the loader enabled.
+- Verify client navigation and browser history separately from initial loading. Transitions must not trigger redundant full-page downloads, long interaction locks, leaked timelines or content flashes; rapid navigation and reduced motion must remain usable.
+- Report what was measured and what was only inferred from code. Confirming local cold-load behavior does not establish real-user field performance or a guarantee across all networks.
+
 ## Authorization
 Never run disruptive tests on production without explicit scope, safe load ceiling and approval. Never assume access to prod implies authorization for stress tests.
 
-References: https://web.dev/articles/vitals and https://web.dev/articles/optimize-inp
+References: https://web.dev/articles/vitals, https://web.dev/articles/optimize-inp and https://web.dev/learn/performance/optimize-web-fonts

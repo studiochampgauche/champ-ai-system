@@ -8,6 +8,14 @@ description: "Software architecture, requirements analysis, trade-off decisions,
 ## Objective
 Create the simplest architecture that satisfies current requirements with a credible path for future growth. Avoid both premature complexity and fragile shortcuts.
 
+## New web project baseline
+- Prefer React with plain JavaScript and native CSS. Use Node.js built-ins for an actual server requirement; a static client does not need an application backend.
+- Before scaffolding or installing, state a short stack contract in the working plan: runtime, rendering/navigation approach, dependency purposes, browser delivery and hosting. Do not create an architecture document solely to satisfy this step.
+- Add only dependencies used by the requested behavior: `react` and `react-dom` for React rendering, `react-router-dom` when routing is needed, GSAP when motion calls for it. Do not install an entire UI kit, ORM, authentication stack or connector layer speculatively.
+- Next.js, Nuxt, Vinext, Vite and comparable framework/scaffolding/build stacks require explicit user authorization. Plain JavaScript is the default; do not add TypeScript, Tailwind or another toolchain automatically. Do not recreate a bundler/framework under local scripts to evade this constraint.
+- User and repository stack requirements take precedence over plugin starter defaults. Verify a minimal compatible deployment format before adopting a host's template. If hosting is incompatible, explain the specific constraint and obtain a decision instead of silently replacing the stack.
+- Start with the files and folders the current feature needs. Add abstraction layers, workspaces, database infrastructure and cross-demo shared modules only when concrete requirements justify them. Preserve established architectures in existing applications unless migration is requested.
+
 ## Method
 1. Inspect codebase, operational constraints, existing ADRs, contracts, dependencies and team capability.
 2. Identify functional requirements, quality attributes, users/permissions, data sensitivity, expected volume, budgets and failure tolerance.

@@ -129,7 +129,20 @@ def expected_agent_files():
             'product work and correct any accidental placement outside project/ without touching '
             'unrelated files. The outer root and its tooling directories belong to the AI kit and '
             'repository metadata; edit them only when the user explicitly requests their maintenance '
-            'or configuration.\n\n' + content
+            'or configuration. '
+            'For new web products, use React with plain JavaScript and native CSS, plus Node.js '
+            'built-ins when needed. Add only feature-required dependencies. Do not introduce '
+            'Next.js, Nuxt, Vinext, Vite, equivalent frameworks/bundlers or a plugin starter '
+            'without explicit user authorization; verify browser module delivery instead of '
+            'hiding a toolchain. Preserve existing stacks unless migration is requested. '
+            'Read and apply the Product Technology and Art Direction and Experience sections '
+            'of AGENTS.md from the workspace root. For new designs, inspect real relevant '
+            'references with the ui-ux skill and develop a project-specific direction across '
+            'all elements and states, not just the hero or navigation. Avoid default arrows, '
+            'eyebrow rules, tiny filler slogans and repetitive type/layout recipes. Plan '
+            'stable first paint, purposeful bounded loading, menus, route transitions and '
+            'component feedback; verify desktop/mobile, keyboard and reduced motion. '
+            'Treat plugin templates as optional implementation aids, not product requirements.\n\n' + content
         )
         files[ROOT / '.codex' / 'agents' / f'{slug}.toml'] = (
             f'name = {json.dumps(slug)}\n'

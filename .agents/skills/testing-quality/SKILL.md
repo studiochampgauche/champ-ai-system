@@ -17,6 +17,12 @@ Choose the cheapest trustworthy test that verifies the risk: unit tests for isol
 6. When load testing: define environment, concurrency, ramp, duration, data, error rate, throughput and latency percentiles (P50/P95/P99). Respect approved target and rate limits.
 7. For every failed criterion within scope, diagnose, fix and retest. Escalate only real constraints or required authorization.
 
+## Web experience checks
+- Inspect desktop and mobile views across the whole page and its relevant states, including controls, forms, cards/lists, menus and overlays. Compare the result with the chosen art direction and its actual references, not a generic component checklist.
+- Check cold and warm loads, initial styles, font/image layout changes and any preloader's readiness, failure and timeout paths. Capture the first visible states when tooling permits; a settled screenshot cannot establish absence of FOUC.
+- Exercise actual route changes, direct URLs, Back/Forward, rapid repeated navigation and menu open/close interruptions. Check focus and scroll restoration, keyboard operation and reduced-motion behavior. Anchor scrolling alone is not a route-transition test.
+- Review the dependency manifest against the authorized stack. Installer tests prove installation behavior, not that an AI will follow design rules or produce an excellent site.
+
 ## Protect systems
 Never start high-volume load tests or destructive security tests against production without explicit authorization. Use fixtures, cleanup and isolated environments.
 

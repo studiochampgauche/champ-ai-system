@@ -108,7 +108,7 @@ The library includes **19 original skills** and **8 official GSAP skills**. Role
 | Architecture and delivery | Architecture design, code review, testing, Git workflows, DevOps, technical SEO, web performance |
 | Motion | GSAP core, timelines, ScrollTrigger, plugins, utilities, React, frameworks and performance |
 
-Browse the [skill library](.agents/skills/) or use the [recommended combinations](.codex/docs/SETUP.md#recommended-skills-by-task). The kit leaves framework selection to the project's requirements.
+Browse the [skill library](.agents/skills/) or use the [recommended combinations](.codex/docs/SETUP.md#recommended-skills-by-task). New web projects favor React, plain JavaScript, native CSS and Node.js where needed, with dependencies chosen for the actual features. The [setup guide](.codex/docs/SETUP.md#product-defaults) explains the technical and design defaults.
 
 ## Make it your own
 

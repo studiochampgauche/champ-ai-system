@@ -6,15 +6,21 @@ description: "Professional React engineering for React 19+ components, Hooks, st
 # React — Professional Engineering
 
 ## Mission
-Build readable, testable, accessible, secure, maintainable, and responsive React applications at a high professional standard. Use https://react.dev/ as the canonical React reference. Check the installed React version before applying version-specific features. React 19.3 was the current release when this skill was authored (2026-11-08); never assume the project is already on that version.
+Build readable, testable, accessible, secure, maintainable, and responsive React applications at a high professional standard. Use https://react.dev/ as the canonical React reference. Check the installed React version and current documentation before applying version-specific features; do not infer the project's version from this skill.
 
 ## Workflow
-1. **Inspect**: read package.json and lockfile, React version, framework, router, build tool, existing components, lint rules, tests, styling, and design tokens. Preserve established conventions and integrations. Do not change the framework or dependency stack without justification.
+1. **Inspect**: read package.json and lockfile, React version, framework, router, build tool, existing components, lint rules, tests, styling, and design tokens. Preserve established conventions and integrations; a stack migration needs user authorization.
 2. **Define outcome**: state expected UI/behavior, loading/empty/error states, accessibility needs, mobile behavior, and acceptance criteria. For defects, reproduce them before editing when feasible.
 3. **Design the smallest sound solution**: identify component boundaries, sources of truth, data flow, and server/client responsibilities. Prefer composition over abstraction for its own sake.
 4. **Implement**: follow React rules, preserve semantics, isolate external effects, handle asynchronous races/cancellation, and avoid divergent state.
 5. **Verify**: type-check if configured; lint; run targeted tests, build, and browser checks when tools allow. Check console errors, navigation, keyboard interaction, responsiveness, and cleanup.
 6. **Improve**: fix actionable defects found within the requested scope and rerun relevant checks. Report measured outcomes and blocked checks separately.
+
+## Default setup for new applications
+- Use React with plain JavaScript, native CSS and only the dependencies needed for the requested behavior. Add `react-router-dom` for actual routes and GSAP for motion that requires it; use Node.js built-ins when a server is needed.
+- Do not bootstrap Next.js, Nuxt, Vinext, Vite or equivalent framework/bundler stacks, nor add TypeScript or a complete UI suite, without explicit user authorization. A deployment plugin or example command does not override this constraint.
+- Plan browser delivery before installing: JSX needs transformation, and an npm package is not necessarily browser-ready ESM. Without a transform, use ordinary JavaScript such as `React.createElement`; do not add browser Babel or a custom bundler as a workaround.
+- Verify the chosen dependency distributions and imports in the target browser. Import maps resolve names to URLs; they do not convert CommonJS or JSX. Do not silently introduce runtime CDN dependencies. Follow the [delivery guidance](references/architecture.md#browser-module-delivery-without-a-bundler) when working without a build tool.
 
 ## Non-negotiable React rules
 - React components and Hooks must remain pure during render. Do not mutate props or state or perform external side effects while rendering.

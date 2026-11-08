@@ -150,6 +150,24 @@ Excellence should be pursued systematically, with clear acceptance criteria and 
 - Before reporting product work complete, review the files changed by that work and verify their locations. Correct any product files accidentally created outside `project/`, including their references, without moving or overwriting unrelated files. Report any location issue that remains unresolved.
 - Resolve AI instructions, role definitions, and skill paths relative to the outer workspace root, even when working inside `project/`. Configure application hosting and builds to use `project/` or its appropriate output directory.
 
+## Product Technology (All Agents)
+
+- For new web products, prefer React with plain JavaScript, native CSS and Node.js built-ins when a server is needed. Install only dependencies required by actual features: `react` and `react-dom`, `react-router-dom` for real routes, GSAP for suitable motion, and other libraries with a concrete purpose.
+- Do not introduce Next.js, Nuxt, Vinext, Vite or equivalent frameworks, bundlers or starter stacks without explicit user authorization. Do not automatically add TypeScript, Tailwind, component suites, an ORM, authentication, a database or deployment infrastructure for a simple site.
+- Decide the minimal file structure, dependencies, browser module delivery, routing and hosting requirements before scaffolding. A plugin's default starter is not a reason to override these constraints. Choose its compatible minimal/static path where available; explain a genuine incompatibility instead of silently changing the stack.
+- Plain React still needs a valid browser delivery strategy. JSX is not native JavaScript, and import maps do not transform CommonJS. Verify the actual package formats; use plain JavaScript rendering when no transform is authorized. Do not conceal a bundler, add runtime compilation/CDNs by default, or build a custom toolchain to evade these rules.
+- Preserve an existing project's stack unless migration is requested. Keep new projects and demo collections proportional to the requested features; add directories, services and abstractions when they become useful.
+
+## Art Direction and Experience (All Agents)
+
+- Design the whole experience: composition, typography, imagery, copy, navigation, buttons, links, cards, lists, forms, filters, overlays, footer, loading, feedback and motion. Every element present and its relevant states must support the same project-specific direction; polishing only the hero or menu is insufficient.
+- For a new design or substantial redesign, apply `ui-ux`: inspect a small selection of real, relevant websites, including Awwwards discovery and direct sources outside award galleries. Study rendered layouts and interactions, record exact URLs and concrete observations, then derive an original direction suited to the audience. References inform decisions; they are not templates to copy or claims of model training.
+- Avoid recurring template habits: arrows on most calls to action, decorative rules before every eyebrow, tiny uppercase slogans or metadata used as filler, and the same display-serif pairing across unrelated sites. Each decoration and text fragment needs a communicative purpose. Define distinct, readable typographic roles for body copy, introductions, labels and supporting content as well as headings; TikTok Sans is one candidate, not a universal choice.
+- Compose layouts from content, hierarchy and pacing. Give each new demo its own visual language while maintaining coherent components within it. Originality does not require arbitrary asymmetry, unique styling for every button, or motion on every element.
+- Plan first paint, loading, menu behavior, route changes and component feedback before implementation. Prefer fluid internal navigation where appropriate, with deliberate entry/exit transitions for routes that exist; anchor scrolling alone does not verify page transitions. Support deep links, browser history, focus, scroll restoration and reduced motion.
+- Prevent unstyled or misplaced first frames with appropriate initial CSS, font strategy and media sizing. Plan a preloader for experiences with genuine initialization work; release it on readiness or a bounded fallback. Never add fake progress, an artificial wait or an indefinite screen to hide loading defects. An immediately ready page should remain immediately usable.
+- Validate the full rendered experience on desktop and mobile: typography, composition, all relevant component states, keyboard operation, cold/warm loading, menu opening/closing and real route changes. Include interrupted interactions and reduced motion; repair observed shortcomings before reporting completion. Report checks that could not be performed rather than inferring quality from a successful build.
+
 ## Skill Selection (All Agents)
 
 - Before executing a task, identify the relevant skills available in `.agents/skills/`.

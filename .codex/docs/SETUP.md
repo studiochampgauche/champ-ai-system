@@ -34,7 +34,7 @@ workspace/
   project/       # All files belonging to the product being built
 ```
 
-Open the outer workspace directory in your AI development tool. Keep product source, assets, dependency manifests and lockfiles, configuration, tests, scripts, documentation, and build output inside `project/`. Run product commands from that directory or its relevant subdirectory. The product's internal structure depends on the chosen technology; no framework is imposed by this kit.
+Open the outer workspace directory in your AI development tool. Keep product source, assets, dependency manifests and lockfiles, configuration, tests, scripts, documentation, and build output inside `project/`. Run product commands from that directory or its relevant subdirectory. The product's internal structure follows its features and the Product Technology policy in `AGENTS.md`.
 
 Product requests default to that application directory even when the chat starts at the outer root. Starting a command inside `project/` must not create `project/project/`. These are shared agent instructions; strict filesystem confinement requires host-tool permissions or a sandbox.
 
@@ -113,11 +113,17 @@ For kit maintenance, the regression suite exercises the installer in temporary w
 
 The GitHub Actions workflow runs setup and these regression tests automatically when the kit changes in the repository. It is a maintenance check; local installation and everyday use do not require GitHub Actions.
 
+## Product defaults
+
+New web products start with React, plain JavaScript and native CSS; use Node.js when a server is needed. Choose only libraries required by the features. Frameworks and bundlers such as Next.js, Nuxt, Vinext and Vite require explicit authorization, including when a publishing plugin suggests its own starter. Browser dependency delivery must be verified; the [React architecture guide](../../.agents/skills/react/references/architecture.md) explains the no-bundler constraints. Existing applications are preserved unless migration is requested.
+
+The shared art-direction rules cover the complete experience and its states. Use the [UI/UX skill](../../.agents/skills/ui-ux/SKILL.md) to inspect relevant live references, define a distinct direction, and review the full rendered product, including first paint, loading and navigation. These instructions guide future work; they do not retrain a model or guarantee a visual result without review.
+
 ## Recommended skills by task
 
 | Task | Skills |
 | --- | --- |
-| React app or frontend | `react`, `typescript`, `css-scss`, `accessibility`, `ui-ux` |
+| React app or frontend | `architecture-design`, `react`, `css-scss`, `accessibility`, `ui-ux`; `typescript` only when the project uses it |
 | GSAP animations in React | `gsap-react`, `gsap-core`, `gsap-timeline`, `gsap-performance`, `gsap-scrolltrigger` as relevant |
 | SaaS backend | `nodejs`, `api-design`, `database-engineering`, `application-security` |
 | Multi-company authorization | `multi-tenant-authorization`, `application-security`, `testing-quality` |
