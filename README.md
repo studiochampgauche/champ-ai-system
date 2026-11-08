@@ -84,6 +84,8 @@ your-workspace/
 
 Run your application's development, build and test commands from `project/`. File access restrictions are controlled by your AI tool; the workspace instructions guide the agent's behavior.
 
+New websites use a **React SPA**, with editable sources in `project/src/` and a production build in `project/dist/`. A minimal esbuild setup bundles dependencies and minifies JavaScript/CSS. The generated product provides development, build and production-preview commands; publish the `dist/` contents. Existing applications keep their architecture unless you request a migration.
+
 ## Meet the agents
 
 | Agent | Focus | Typical work |
@@ -108,7 +110,7 @@ The library includes **19 original skills** and **8 official GSAP skills**. Role
 | Architecture and delivery | Architecture design, code review, testing, Git workflows, DevOps, technical SEO, web performance |
 | Motion | GSAP core, timelines, ScrollTrigger, plugins, utilities, React, frameworks and performance |
 
-Browse the [skill library](.agents/skills/) or use the [recommended combinations](.codex/docs/SETUP.md#recommended-skills-by-task). New web projects favor React, plain JavaScript, native CSS and Node.js where needed, with dependencies chosen for the actual features. The [setup guide](.codex/docs/SETUP.md#product-defaults) explains the technical and design defaults.
+Browse the [skill library](.agents/skills/) or use the [recommended combinations](.codex/docs/SETUP.md#recommended-skills-by-task). New web projects use React SPAs, plain JavaScript/JSX and native CSS, with Node.js and other dependencies added for actual needs. The [setup guide](.codex/docs/SETUP.md#product-defaults) explains the source/build workflow and design defaults, including startup loading, page transitions and browser verification.
 
 ## Make it your own
 

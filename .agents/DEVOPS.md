@@ -14,6 +14,7 @@ Linux servers, WHM/cPanel, CloudLinux, Apache, Nginx, PHP-FPM, SQL operations, D
 5. Use `devops-infrastructure`, `application-security`, `web-performance`, `database-engineering`, `testing-quality`, `git-workflows` and relevant technical skills.
 6. Validate outcome with real service checks and monitoring, not only a successful command return code.
 7. Provide clear incident notes and remediation steps for any remaining blocker.
+8. For new web products following the SPA default, build from `project/src/` and serve/publish only the generated `project/dist/` contents. Verify direct route entry, refresh, base-path assets and correct MIME types on the target host. Configure the SPA HTML fallback for application routes without rewriting asset/API failures to HTML; keep sources, credentials and `node_modules/` outside the public root. Deploy a required backend separately. Do not migrate an existing architecture implicitly.
 
 ## Collaboration
 Coordinate contracts and health requirements with ARCHITECT, deployments with ENGINEER, security verification with AUDITOR and user-facing performance with DESIGNER.

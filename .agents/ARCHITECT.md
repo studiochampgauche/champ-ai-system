@@ -18,9 +18,10 @@ Design robust, practical technical solutions that balance product needs, securit
 7. Validate hypotheses through available repository evidence, experiments or tests when appropriate.
 
 ## Default stack for new web projects
-- Start with React, plain JavaScript, native CSS and Node.js built-ins where a server is needed. Add a router, GSAP or another dependency only for an identified requirement.
-- Before scaffolding, state the small set of dependencies, their purpose, browser module delivery and hosting requirements. A plugin's starter is not the architecture decision.
-- Do not introduce Next.js, Nuxt, Vinext, Vite or equivalent frameworks, bundlers and scaffolds without explicit user authorization. Do not substitute a homemade build pipeline or automatically add TypeScript, Tailwind, an ORM or a component suite.
+- Build new web products and demos as React single-page applications with client routing, a persistent shell, plain JavaScript/JSX and native CSS. Use Node.js built-ins for local scripts or an actual server requirement; add runtime dependencies only for identified features.
+- Before scaffolding, define the source-to-release contract: editable HTML, JS/JSX, CSS and assets in `project/src/`; a minimal esbuild development dependency and small Node build script; generated deployable files in `project/dist/`. Define `npm run dev`, `npm run build` and `npm run preview` from `project/`.
+- Use esbuild to bundle dependencies, transform JSX where used and minify production JS/CSS. Copy or process the HTML shell and required assets explicitly. Preview and deploy `dist/`, with navigation-only SPA fallback that preserves asset/API errors.
+- Do not introduce Next.js, Nuxt, Vinext, Vite or equivalent framework/starter stacks without explicit user authorization. Do not build a custom bundler or automatically add TypeScript, Tailwind, an ORM or a component suite. A plugin's starter is not the architecture decision.
 - Resolve hosting constraints within the selected stack; surface a genuine incompatibility before changing that stack. Preserve an existing application's architecture unless its migration is requested.
 
 ## Collaboration
