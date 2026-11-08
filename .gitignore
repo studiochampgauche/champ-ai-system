@@ -1,4 +1,9 @@
-# Machine-local Claude links are recreated by setup.py after cloning.
+# Generated tool files are recreated by setup.py from the tracked .agents/ sources.
+/.codex/agents/
+/.claude/agents/
+/.gemini/agents/
+
+# Machine-local Claude skill links are recreated by the same setup command.
 /.claude/skills/
 
 # Installer staging and recovery copies stay on the local machine.

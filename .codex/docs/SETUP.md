@@ -6,7 +6,7 @@ A single-source professional agent and skill library for **Codex, Claude Code an
 
 - `.agents/ARCHITECT.md`, `DESIGNER.md`, `ENGINEER.md`, `AUDITOR.md`, `DEVOPS.md`: one canonical role definition per agent.
 - `.agents/skills/<skill>/SKILL.md`: 19 original professional skills, including React and application security, with extra React/security reference files.
-- `.codex/agents/*.toml`, `.claude/agents/*.md`, `.gemini/agents/*.md`: generated native agent definitions. They embed canonical agent content, rather than depending on an agent's ability to open a separate file.
+- `.codex/agents/*.toml`, `.claude/agents/*.md`, `.gemini/agents/*.md`: native agent definitions generated locally by setup and ignored by Git. They embed canonical agent content, rather than depending on an agent's ability to open a separate file.
 - `.codex/scripts/setup.py`: cross-platform setup/validation tool and official GSAP installer for all three AI tools.
 - `.codex/tests/test_setup.py`: optional maintenance tests that exercise the installer; these are not needed to run it or develop a product.
 - `project/`: the dedicated directory for the website, application, or product built by the AI system. Its `.gitkeep` placeholder keeps the directory in Git until product files are added.
@@ -14,16 +14,18 @@ A single-source professional agent and skill library for **Codex, Claude Code an
 
 ## Workspace layout
 
+The generated directories appear after setup:
+
 ```text
 workspace/
   .agents/       # Canonical AI roles and skills
   .codex/
-    agents/     # Generated Codex agent definitions
+    agents/     # Generated Codex agents; ignored by Git
     docs/       # AI kit documentation
     scripts/    # AI kit setup tools for Codex, Claude and Gemini
     tests/      # Optional AI kit maintenance tests
-  .claude/       # Generated Claude agents and skill links
-  .gemini/       # Generated Gemini agent definitions
+  .claude/       # Local agents and skill links; generated paths ignored
+  .gemini/       # Local agents; generated path ignored
   .github/       # Contribution guidance, issue forms and CI
   .gitignore     # Local links, credentials, dependencies and build exclusions
   AGENTS.md      # Shared working instructions
@@ -42,23 +44,23 @@ Run the kit's setup command from the outer workspace root. Configure the product
 
 1. Copy or clone the kit **into the outer workspace directory**, including `project/`. For an existing application, plan its placement under `project/` while preserving its files and integrations. This checkout contains `AGENTS.md`, `CLAUDE.md` and `GEMINI.md`: merge the relevant instructions into existing policy files instead of overwriting them. The setup script itself does not modify these files or move application files.
 2. From the outer workspace root, check `python --version`: Python **3.11 or later** is required. If `python` selects an older installation, invoke an installed 3.11+ interpreter by its full path. Git is required when downloading GSAP.
-3. Run:
+3. Run the required local setup:
 
 ```sh
-python .codex/scripts/setup.py --install-gsap --sync-agents --link-claude --validate
+python .codex/scripts/setup.py --sync-agents --link-claude --validate
 ```
 
-This installs eight skills from `https://github.com/greensock/gsap-skills` when absent, preserves upstream attribution, regenerates native subagent definitions, and links all skills to `.claude/skills/`. If all eight GSAP skills already exist, they and their provenance are preserved without downloading anything. A partial GSAP installation requires an explicit update.
+This generates native subagent definitions, links all skills to `.claude/skills/` and validates the installation. The agent definitions and links are intentionally absent from a fresh clone because they are generated outputs. The bundled source skills remain in Git, so this command needs no download.
 
 The script locates the AI kit's workspace root from its own location (`.codex/scripts/setup.py`), independently of the current working directory and outer folder name. To run it from another directory, pass the full path to the script.
 
-If you do not have internet, run `python .codex/scripts/setup.py --sync-agents --link-claude --validate` now and `--install-gsap --link-claude` later.
+For a checkout without the optional GSAP skills, add `--install-gsap` to download the eight official skills and preserve their upstream attribution. If all eight already exist, that option preserves them and their provenance without downloading anything. A partial GSAP installation requires an explicit update.
 
 ## Share the kit on GitHub
 
-Keep the canonical roles, skills, generated native agent definitions, documentation and `project/.gitkeep` in version control. The root `.gitignore` excludes `.claude/skills/` because those local links must be recreated on each machine. It also excludes common credentials, caches, dependencies and product build outputs; product source and dependency lockfiles remain tracked.
+Keep the canonical roles, skills, generator, documentation, maintenance tests and `project/.gitkeep` in version control. Apply the same policy to all tools: `.codex/agents/`, `.claude/agents/` and `.gemini/agents/` are generated locally and ignored by Git. `.claude/skills/` contains local links and is also ignored. The rest of `.codex/`, including the setup script, remains tracked. The root `.gitignore` also excludes common credentials, caches, dependencies and product build outputs; product source and dependency lockfiles remain tracked.
 
-The included kit can be published without running setup first. After cloning or downloading it, run the normal setup command to create local links and validate the new workspace. The [README](../../README.md) is the public entry point; [CONTRIBUTING](../../.github/CONTRIBUTING.md) explains maintenance. The [GitHub workflow](../../.github/workflows/validate.yml) validates committed definitions before running isolated installer tests on Linux and Windows.
+The source kit can be published without running setup first. After cloning or downloading it, run the full setup command above before using the specialist agents; it generates the native definitions, creates local links and validates the workspace. The [README](../../README.md) is the public entry point; [CONTRIBUTING](../../.github/CONTRIBUTING.md) explains maintenance. The [GitHub workflow](../../.github/workflows/validate.yml) generates agents and links from the committed sources before validating and running isolated installer tests on Linux and Windows.
 
 If you want visitors to start independent product repositories from the kit, enable **Template repository** in the GitHub repository settings after publishing. Each resulting repository owns its copy; future template changes do not propagate automatically.
 
@@ -75,7 +77,7 @@ python .codex/scripts/setup.py --install-gsap --update-gsap --link-claude --vali
 - Edit `.agents/ENGINEER.md` (or another agent source), then run `python .codex/scripts/setup.py --sync-agents`.
 - Edit `.agents/skills/react/SKILL.md` (or any other skill). Codex and Gemini read `.agents/skills/` directly; Claude accesses the same files via its `.claude/skills/` links.
 - When adding a new skill directory, rerun `python .codex/scripts/setup.py --link-claude --validate`.
-- Preserve native generated files; do not edit their copies by hand.
+- Native generated files stay local and are recreated by setup; do not edit or commit their copies. After pulling changes to canonical roles or the generator, rerun `python .codex/scripts/setup.py --sync-agents --validate`.
 
 ## Existing project policy files
 
@@ -98,6 +100,8 @@ Review your existing files rather than allowing an installer to overwrite them. 
 
 ## Validation and regression tests
 
+Complete setup first. `--validate` checks the existing installation; it does not generate missing files.
+
 ```sh
 python .codex/scripts/setup.py --validate
 python -B -m unittest discover -s .codex/tests -v
@@ -105,11 +109,9 @@ python -B -m unittest discover -s .codex/tests -v
 
 Validation requires the five canonical roles, the 19 internal skills, all 15 generated agent files synchronized with their sources, and Claude links targeting the corresponding skill directories. Additional skill directories must contain valid `SKILL.md` metadata. GSAP may be absent for offline setup; if present, all eight skills are required. An empty or incomplete installation fails validation.
 
-`setup.py` performs installation and checks the current workspace with `--validate`. `test_setup.py` imports that script and exercises it in temporary workspaces, deliberately simulating missing files, incorrect links, failed copies and failed recovery. It contains test scenarios rather than a second implementation of the installer, so the two files have different contents.
+For kit maintenance, the regression suite exercises the installer in temporary workspaces with simulated GSAP downloads. It covers missing or stale files, incorrect links, provenance preservation and recovery after failures. Product tests belong in `project/`.
 
-The `.codex/tests/` directory is optional for everyday use: the installer does not import or require it. Keep it when maintaining or changing the AI kit to catch regressions. Product tests belong in `project/`.
-
-The tests use temporary projects and simulated GSAP downloads. They cover missing/stale files, wrong links, provenance preservation, preparation errors and rollback. They do not download GSAP or replace this project's installed skills.
+The GitHub Actions workflow runs setup and these regression tests automatically when the kit changes in the repository. It is a maintenance check; local installation and everyday use do not require GitHub Actions.
 
 ## Recommended skills by task
 

@@ -37,9 +37,8 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
 
-      # Do not sync first: validation must catch stale committed definitions.
-      - name: Recreate local links and validate the committed kit
-        run: python -B .codex/scripts/setup.py --link-claude --validate
+      - name: Generate native agents, link skills and validate the kit
+        run: python -B .codex/scripts/setup.py --sync-agents --link-claude --validate
 
       - name: Run isolated installer regression tests
         run: python -B -m unittest discover -s .codex/tests -v

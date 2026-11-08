@@ -15,7 +15,7 @@ Useful improvements start with a concrete task, an observed problem, and evidenc
 
 Keep this template's `project/` directory ready for a new product. Do not submit a client application as a change to the kit.
 
-Generated agent definitions belong in version control, but edit their canonical sources or the generator, then regenerate them. Local Claude skill links are ignored and recreated during setup. Preserve upstream GSAP attribution and license files.
+Keep canonical roles and skills in `.agents/` in version control. The native definitions in `.codex/agents/`, `.claude/agents/` and `.gemini/agents/` are generated locally and ignored by Git, as are the local Claude skill links in `.claude/skills/`. Edit the canonical sources or the generator, then run setup to regenerate the native definitions. Do not force-add generated files. Preserve upstream GSAP attribution and license files.
 
 ## Develop and verify
 
@@ -28,7 +28,7 @@ python -B -m unittest discover -s .codex/tests -v
 
 The normal setup command uses the included skills without downloading GSAP. Tests use temporary workspaces and simulated downloads. When changing failure handling, exercise the relevant error path as well as the successful path.
 
-The GitHub workflow runs the same checks on Windows and Linux with Python 3.11 and 3.13. Its results are available after the workflow runs in the published repository.
+The GitHub workflow generates the native agents, creates skill links and runs these checks from a fresh checkout on Windows and Linux with Python 3.11 and 3.13. Review the run results in the repository's Actions tab when submitting a change. GitHub Actions is optional for local installation and use.
 
 ## Submit a focused change
 
