@@ -1,0 +1,48 @@
+name: Validate AI kit
+
+on:
+  push:
+    paths-ignore:
+      - 'project/**'
+  pull_request:
+    paths-ignore:
+      - 'project/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.11', '3.13']
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+
+      # Do not sync first: validation must catch stale committed definitions.
+      - name: Recreate local links and validate the committed kit
+        run: python -B .codex/scripts/setup.py --link-claude --validate
+
+      - name: Run isolated installer regression tests
+        run: python -B -m unittest discover -s .codex/tests -v
+
+      - name: Check tracked files for accidental changes
+        run: git diff --exit-code

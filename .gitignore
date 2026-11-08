@@ -1,0 +1,37 @@
+# Machine-local Claude links are recreated by setup.py after cloning.
+/.claude/skills/
+
+# Installer staging and recovery copies stay on the local machine.
+/.setup-gsap-*/
+
+# Local credentials and environment overrides.
+.env
+.env.*
+!.env.example
+!.env.template
+/.claude/settings.local.json
+CLAUDE.local.md
+
+# Python caches and virtual environments.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Product dependencies and generated output. Keep project/ itself tracked.
+node_modules/
+/project/**/vendor/
+/project/**/dist/
+/project/**/build/
+/project/**/coverage/
+/project/**/.next/
+/project/**/.nuxt/
+/project/**/.output/
+/project/**/.cache/
+
+# Local logs and operating-system files.
+*.log
+.DS_Store
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,36 @@
+name: Bug report
+description: Report a reproducible setup, instruction or documentation problem.
+title: '[Bug] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Include a small reproducible example, without credentials or private client information.
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, Python version, and AI tool/version when relevant.
+      placeholder: Windows 11, Python 3.13, Codex
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the exact command or minimal prompt and your working directory.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: Paste relevant output and explain any files changed unexpectedly.
+    validations:
+      required: true
