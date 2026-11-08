@@ -4,7 +4,7 @@
 
 Reusable roles, practical skills and a clear workspace for **Codex, Claude Code and Gemini CLI**. Built by **Studio Champ Gauche inc.**, a web design and software development agency in Québec.
 
-**5 specialist roles · 27 skills · 3 tool formats · Your product in `project/`**
+**5 specialist roles · 27 skills · One workspace for your next product**
 
 [Quickstart](#quickstart) · [Meet the agents](#meet-the-agents) · [Skills](#skills-for-the-work-at-hand) · [Setup guide](.codex/docs/SETUP.md)
 
@@ -12,29 +12,27 @@ Reusable roles, practical skills and a clear workspace for **Codex, Claude Code 
 
 ## A repeatable way to build
 
-Give the main agent a product brief. It can delegate focused work, apply relevant skills, review the result and correct issues within the task's scope.
+Use Champ AI System to build a website, develop a web application or improve an existing product. Give your coding assistant a brief, and use a shared process for planning, implementation and review.
 
 The kit gives that workflow a shared foundation:
 
 | What you get | Why it matters |
 | --- | --- |
 | Clear specialist responsibilities | Architecture, design, implementation, review and infrastructure have defined owners. |
-| One source for three tools | Edit canonical roles once, then generate native agent definitions. |
+| A workflow across three AI tools | Use the same roles and skills with Codex, Claude Code or Gemini CLI. |
 | Skills loaded for the task | Bring in relevant procedures without requiring every skill for every request. |
 | A dedicated product directory | Keep application files together in `project/`, separate from the AI kit. |
 | Verification as part of delivery | Ask for actual checks, evidence and clear reporting of anything unverified. |
 
-These are instructions and tooling for your existing coding agent. Your chosen model, tool access and permissions provide the execution capabilities. Delegation depends on the host tool's support and settings.
+The kit runs inside your existing AI coding tool, using your configured model and permissions. Specialist delegation depends on the tool's available features and settings.
 
 ## Quickstart
 
-You need **Python 3.11+** and a configured installation of **one** supported AI tool. Git is needed to clone the repository or download GSAP updates.
+You need **Python 3.11+** and a configured installation of **Codex, Claude Code or Gemini CLI**.
 
 ### 1. Start a workspace
 
 Clone or download this repository into a new folder. If the repository is marked as a GitHub template, use **Use this template** to start a separate repository for your product.
-
-The outer folder can have any name. Keep the kit's internal structure intact.
 
 ### 2. Prepare the kit
 
@@ -45,13 +43,11 @@ python --version
 python .codex/scripts/setup.py --sync-agents --link-claude --validate
 ```
 
-This generates the five roles in all three native formats, creates Claude's local skill links and validates the installation. The bundled skills make this setup step available without a download.
-
-On Windows, if `python` selects an older installation, invoke your installed Python 3.11+ executable by its full path. The setup script reports an unsupported version explicitly.
+Run this required step in each new workspace. It prepares the agents and skills for use and checks the installation. All source skills are included; no additional download is needed.
 
 ### 3. Open the workspace and give your brief
 
-Open the **outer workspace folder** in Codex, Claude Code or Gemini CLI. Start a new chat there. Keep your normal model and account configuration in the selected tool.
+Open the **workspace folder containing `AGENTS.md`** in your AI tool and start a new chat.
 
 Try this starter prompt:
 
@@ -70,34 +66,23 @@ Use the relevant specialist agents and skills when useful.
 Verify the result, address issues found and report the checks actually run.
 ```
 
-For existing applications, plan their placement under `project/` and preserve their integrations. The installer does not move application files.
+For help with an existing application or an installation issue, see the [setup guide](.codex/docs/SETUP.md).
 
 ## Your product has a home
 
+Keep the workspace root open in your AI tool. The instructions direct product work into **`project/`**, where your application code, assets, dependencies and tests belong.
+
 ```text
 your-workspace/
-├── .agents/                Canonical roles, skills and upstream licenses
-├── .codex/
-│   ├── agents/             Generated Codex agents
-│   ├── docs/               Kit documentation
-│   ├── scripts/            Setup and maintenance tools
-│   └── tests/              Installer regression tests
-├── .claude/                Generated Claude agents and local skill links
-├── .gemini/                Generated Gemini agents
-├── .github/                Contribution guidance and CI
+├── .agents/                Roles and skills
+├── .codex/                 Codex configuration and kit tools
+├── .claude/                Claude Code configuration
+├── .gemini/                Gemini CLI configuration
 ├── AGENTS.md               Shared working instructions
-├── CLAUDE.md               Imports AGENTS.md
-├── GEMINI.md               Imports AGENTS.md
 └── project/                Everything belonging to your product
 ```
 
-Product requests target **`project/` by default**, even when the chat is opened at the outer root. Source code, assets, dependency manifests, configuration, tests, documentation and build output belong there. Product commands run there or in the relevant subdirectory. Working from `project/` does not mean creating another `project/project/`.
-
-Kit maintenance is a separate, explicit task. The main agent and generated specialist instructions carry this distinction. Before editing, agents are instructed to resolve their target directory; their final review should check the changed paths.
-
-**This is a working rule, not filesystem confinement.** An instruction-following model can make mistakes. Strict write restrictions require permissions or a sandbox configured in the host tool. Open the outer workspace so its instructions and agent definitions are available.
-
-The included `.gitkeep` keeps `project/` in Git. Remove it when scaffolding if your chosen tool requires an empty directory. Configure your product's hosting and build paths for `project/` or its appropriate output directory.
+Run your application's development, build and test commands from `project/`. File access restrictions are controlled by your AI tool; the workspace instructions guide the agent's behavior.
 
 ## Meet the agents
 
@@ -125,45 +110,11 @@ The library includes **19 original skills** and **8 official GSAP skills**. Role
 
 Browse the [skill library](.agents/skills/) or use the [recommended combinations](.codex/docs/SETUP.md#recommended-skills-by-task). The kit leaves framework selection to the project's requirements.
 
-## Edit once, keep tools aligned
+## Make it your own
 
-Update a canonical role such as `.agents/ENGINEER.md`, then regenerate its native definitions:
+Adapt `AGENTS.md` to your team's identity and working practices. It starts with Studio Champ Gauche's operating principles. Customize the roles and skills in `.agents/` as your needs evolve, then rerun the setup command to apply those changes.
 
-```sh
-python .codex/scripts/setup.py --sync-agents --validate
-```
-
-Edit skills in `.agents/skills/`. After adding a skill directory, run:
-
-```sh
-python .codex/scripts/setup.py --link-claude --validate
-```
-
-`AGENTS.md` includes Studio Champ Gauche's operating principles and identity. Review and deliberately adapt that context when adopting the kit for another team. Keep local project requirements consistent with the shared rules.
-
-Each workspace owns its copy of the kit. Changes to a template do not automatically update projects created from it.
-
-## What gets checked
-
-```sh
-# Check the current installation
-python .codex/scripts/setup.py --validate
-
-# Exercise installer behavior in temporary workspaces
-python -B -m unittest discover -s .codex/tests -v
-```
-
-Validation checks required skills, the canonical roles, generated agent synchronization, Codex TOML and Claude skill links. Regression tests exercise incomplete installations, incorrect links, GSAP provenance and recovery after simulated failures.
-
-The [GitHub Actions workflow](.github/workflows/validate.yml) defines checks on Ubuntu and Windows with Python 3.11 and 3.13. Its run results appear in the repository's Actions tab after publication.
-
-These checks cover the kit's installation tooling. Product quality, agent instruction adherence and model effectiveness need their own evaluation on real tasks. Maintenance tests are optional for everyday use and do not run your product.
-
-## GSAP attribution and updates
-
-The eight bundled GSAP skills come from GreenSock's official repository. Their recorded source commit is in [GSAP_UPSTREAM.md](.codex/docs/GSAP_UPSTREAM.md), and their license is preserved in [.agents/licenses/](.agents/licenses/gsap-skills-LICENSE).
-
-For deliberate upstream updates, conflict resolution and detailed setup behavior, see the [setup guide](.codex/docs/SETUP.md).
+Each project has its own copy of the kit, so you can tailor its instructions independently. See the [setup guide](.codex/docs/SETUP.md) for customization, updates and troubleshooting.
 
 ## Help improve the workflow
 
@@ -171,4 +122,6 @@ Useful contributions include reproducible bug reports, clearer procedures and ex
 
 If Champ AI System helps your work, a star makes it easier for others to discover it.
 
-Original kit files are covered by [LICENSE](LICENSE). Bundled GSAP files retain their upstream license and attribution.
+## License and credits
+
+Original kit files are covered by [LICENSE](LICENSE). The eight GSAP skills come from GreenSock's official repository and retain their [upstream license](.agents/licenses/gsap-skills-LICENSE). See [GSAP_UPSTREAM.md](.codex/docs/GSAP_UPSTREAM.md) for their source revision.
