@@ -2,17 +2,6 @@
 
 Unless explicitly stated otherwise, all instructions in this file apply exclusively to the main agent. Specialized agents must follow their own role definitions and any rules explicitly identified as applicable to all agents.
 
-## Project Workspace (All Agents)
-
-- By default, requests to create, change, debug, review, or document a website, application, or other product target `project/`. This applies even when the chat or terminal is opened at the outer workspace root. A product request does not authorize changes to the AI kit.
-- Before product work, identify the outer workspace root containing this `AGENTS.md` and the kit's `.agents/` directory. Resolve the application root as `<workspace-root>/project/`, independently of the outer folder's name. If the current directory is already `project/` or one of its children, use that same application root; do not create `project/project/`.
-- Keep all product source code, assets, dependency manifests and lockfiles, configuration, tests, scripts, documentation, and build output inside the application root. Organize its subdirectories according to the chosen technology and product needs.
-- Before each file mutation or product command, check the resolved target path and working directory. Product paths must remain inside the application root, and scaffolding, dependency installation, development, build, and test commands must run from `project/` or its appropriate subdirectory. Do not scaffold an application at the workspace root.
-- The workspace root contains the AI kit and repository metadata. Its `.agents/`, `.codex/`, `.claude/`, and `.gemini/` directories belong to the AI system. The kit's documentation, setup scripts, and maintenance tests are stored in `.codex/docs/`, `.codex/scripts/`, and `.codex/tests/`; product documentation, scripts, and tests belong under `project/` instead. Modify the kit or its repository metadata when the user's request explicitly concerns their maintenance or configuration.
-- When delegating product work, include the resolved workspace root, the absolute application root, the agent's file ownership, and the working directory for its commands. Every specialized agent must apply the same boundary.
-- Before reporting product work complete, review the files changed by that work and verify their locations. Correct any product files accidentally created outside `project/`, including their references, without moving or overwriting unrelated files. Report any location issue that remains unresolved.
-- Resolve AI instructions, role definitions, and skill paths relative to the outer workspace root, even when working inside `project/`. Configure application hosting and builds to use `project/` or its appropriate output directory.
-
 ## Introduction
 
 You need to put yourself in the shoes of an existing web design and software development agency called Studio Champ Gauche inc.
@@ -149,6 +138,17 @@ Excellence should be pursued systematically, with clear acceptance criteria and 
 - Complete the entire requested task. You may divide complex work into phases or batches, but do not stop after an intermediate phase or ask for unnecessary confirmation while authorized work remains.
 - When you identify a problem, limitation, or incomplete requirement within the scope of the requested task, proactively investigate and address it instead of merely reporting it. Implement appropriate corrections, verify the results, and continue working until the requirements are satisfied or a genuine blocker prevents further progress.
 - If completing a task requires missing access, additional authorization, unavailable resources, or a decision only the user can make, do not bypass those limits. Make reasonable attempts within your permissions, then clearly explain what was completed, what remains unresolved, and what is needed to proceed.
+
+## Project Workspace (All Agents)
+
+- By default, requests to create, change, debug, review, or document a website, application, or other product target `project/`. This applies even when the chat or terminal is opened at the outer workspace root. A product request does not authorize changes to the AI kit.
+- Before product work, identify the outer workspace root containing this `AGENTS.md` and the kit's `.agents/` directory. Resolve the application root as `<workspace-root>/project/`, independently of the outer folder's name. If the current directory is already `project/` or one of its children, use that same application root; do not create `project/project/`.
+- Keep all product source code, assets, dependency manifests and lockfiles, configuration, tests, scripts, documentation, and build output inside the application root. Organize its subdirectories according to the chosen technology and product needs.
+- Before each file mutation or product command, check the resolved target path and working directory. Product paths must remain inside the application root, and scaffolding, dependency installation, development, build, and test commands must run from `project/` or its appropriate subdirectory. Do not scaffold an application at the workspace root.
+- The workspace root contains the AI kit and repository metadata. Its `.agents/`, `.codex/`, `.claude/`, and `.gemini/` directories belong to the AI system. The kit's documentation, setup scripts, and maintenance tests are stored in `.codex/docs/`, `.codex/scripts/`, and `.codex/tests/`; product documentation, scripts, and tests belong under `project/` instead. Modify the kit or its repository metadata when the user's request explicitly concerns their maintenance or configuration.
+- When delegating product work, include the resolved workspace root, the absolute application root, the agent's file ownership, and the working directory for its commands. Every specialized agent must apply the same boundary.
+- Before reporting product work complete, review the files changed by that work and verify their locations. Correct any product files accidentally created outside `project/`, including their references, without moving or overwriting unrelated files. Report any location issue that remains unresolved.
+- Resolve AI instructions, role definitions, and skill paths relative to the outer workspace root, even when working inside `project/`. Configure application hosting and builds to use `project/` or its appropriate output directory.
 
 ## Skill Selection (All Agents)
 
